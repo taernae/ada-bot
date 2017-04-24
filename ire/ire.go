@@ -33,7 +33,7 @@ func (d eventsByDate) Less(i, j int) bool {
 	return d[i].Date < d[j].Date
 }
 
-// Get the latest events from API endpoint, returns deathsights
+// Get the latest events from API endpoint, returning them
 func (g *Gamefeed) Sync() ([]Event, error) {
 	url := fmt.Sprintf("%s/gamefeed.json", APIURL)
 	g.LastID = settings.Settings.IRE.LastID
@@ -41,10 +41,10 @@ func (g *Gamefeed) Sync() ([]Event, error) {
 		url = fmt.Sprintf("%s?id=%d", url, g.LastID)
 	}
 
-	var deathsights []Event
+	var events []Event
 
-	if !settings.Settings.IRE.DeathsightEnabled { // Oops, we're disabled, bail out
-		return deathsights, nil
+	if !settings.Settings.IRE.EventsEnabled { // Oops, we're disabled, bail out
+		return events, nil
 	}
 
 	if err := getJSON(url, &g.Events); err == nil {
@@ -55,7 +55,11 @@ func (g *Gamefeed) Sync() ([]Event, error) {
 			}
 
 			if event.Type == "DEA" {
-				deathsights = append(deathsights, event)
+				events = append(events, event)
+			}
+
+			if event.Type == "DUE" {
+				events = append(events, event)
 			}
 		}
 	} else {
@@ -63,8 +67,8 @@ func (g *Gamefeed) Sync() ([]Event, error) {
 	}
 
 	settings.Settings.IRE.LastID = g.LastID
-	sort.Sort(eventsByDate(deathsights))
-	return deathsights, nil
+	sort.Sort(eventsByDate(events))
+	return events, nil
 }
 
 // Represents a player per IRE's API
