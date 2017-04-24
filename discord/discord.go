@@ -77,13 +77,13 @@ func ready(s *discordgo.Session, r *discordgo.Ready) {
 		}
 		fmt.Println("----------------------------------")
 	}
-	if err := s.UpdateStatus(0, "play.achaea.com"); err != nil {
+	if err := s.UpdateStatus(0, "play.lusternia.com"); err != nil {
 		log.Printf("warning: %v", err) // Not a fatal error
 	}
 }
 
 func messageUpdate(s *discordgo.Session, m *discordgo.MessageUpdate) {
-	go _botReactions(s, m.Message, true)
+ 	go _botReactions(s, m.Message, true)
 }
 
 func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
@@ -127,3 +127,4 @@ func _postReactions(m *discordgo.Message, member *discordgo.Member, update bool)
 		PostMessage(m.ChannelID, reaction)
 	}
 }
+

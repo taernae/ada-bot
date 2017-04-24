@@ -88,7 +88,7 @@ func main() {
 
 	IRE := ire.Gamefeed{}
 
-	discord.PostMessage(_config.Discord.Channel, "```---------- ada-bot restarting ... ----------```")
+	discord.PostMessage(_config.Discord.Channel, "```The Lusternia Livefeed Bot is restarting...```")
 	ticker := time.NewTicker(time.Millisecond * 30000) // 30 second ticker
 	go func() {
 		for range ticker.C {
@@ -106,3 +106,4 @@ func main() {
 	fmt.Println("Bot is now running.  Press CTRL-C to exit.")
 	<-make(chan int) // block forever till SIGINT / SIGTERM
 }
+

@@ -1,11 +1,11 @@
 [Unit]
-Description = ada-bot discord bot service
+Description = Lusternia API Livefeed Discord Bot
 Requires=network.target
 
 [Service]
-User=ada-bot
-WorkingDirectory=/home/ada-bot
-ExecStart=/home/ada-bot/go/bin/ada-bot
+User=deploy
+WorkingDirectory=/home/deploy/livefeed
+ExecStart=/home/deploy/.gvm/pkgsets/go1.8.1/global/bin/ada-bot
 Restart=always
 
 [Install]

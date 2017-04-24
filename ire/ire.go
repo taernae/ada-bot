@@ -72,28 +72,29 @@ type Player struct {
 	Name         string `json:"name"`
 	Fullname     string `json:"fullname"`
 	City         string `json:"city"`
-	House        string `json:"house"`
+	Faction      string `json:"faction"`
+	Guild        string `json:"guild"`
 	Level        string `json:"level"`
-	Class        string `json:"class"`
-	MobKills     string `json:"mob_kills"`
-	PlayerKills  string `json:"player_kills"`
-	XPRank       string `json:"xp_rank"`
-	ExplorerRank string `json:"explorer_rank"`
+	Race         string `json:"race"`
+	Kills        string `json:"kills"`
+	Deaths       string `json:"deaths"`
+	ExplorerRank string `json:"explorerrank"`
 }
 
 func (s *Player) String() string {
 	player := fmt.Sprintf(`
            Name: %s
-          Class: %s (Level %s)
+       Fullname: %s
+           Race: %s
            City: %s
-          House: %s
-    Kills (Mob): %s
-Kills (Players): %s
-      Rank (XP): %s
-Rank (Explorer): %s`,
-		s.Fullname, strings.Title(s.Class), s.Level,
-		strings.Title(s.City), strings.Title(s.House),
-		s.MobKills, s.PlayerKills, s.XPRank, s.ExplorerRank)
+        Faction: %s
+	      Guild: %s
+          Kills: %s
+         Deaths: %s
+   ExplorerRank: %s`,
+		s.Name, s.Fullname, s.Race, strings.Title(s.City), 
+		strings.Title(s.Faction), strings.Title(s.Guild), 
+		s.Kills, s.Deaths, s.ExplorerRank)
 	return player
 }
 
@@ -118,3 +119,4 @@ func GetPlayer(player string) (*Player, error) {
 		return nil, err // Error at regexp.MatchString() call
 	}
 }
+
