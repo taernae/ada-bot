@@ -14,7 +14,7 @@ type settings struct {
 	}
 
 	IRE struct {
-		EventsEnabled bool
+		DeathsightEnabled bool
 		LastID            int
 	}
 }
@@ -43,7 +43,7 @@ func (s *settings) Load() error {
 	} else { // settings file does not exist, let's create a new one
 		/* ---------- BEGIN DEFAULT SETTINGS ----------*/
 		Settings.Discord.BotPrefix = "!"
-		Settings.IRE.EventsEnabled = true
+		Settings.IRE.DeathsightEnabled = true
 		Settings.IRE.LastID = 0
 		/* ----------- END DEFAULT SETTINGS -----------*/
 		if err := Settings.Save(); err != nil {

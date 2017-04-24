@@ -10,6 +10,7 @@ import (
 	"runtime"
 	"text/tabwriter"
 	"time"
+	"os"
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/dustin/go-humanize"
@@ -45,11 +46,19 @@ func (s *stats) Reaction(m *discordgo.Message, a *discordgo.Member, update bool)
 	w := &tabwriter.Writer{}
 	buf := &bytes.Buffer{}
 
+	hostname,err := os.Hostname()
+
 	w.Init(buf, 0, 4, 0, ' ', 0)
 
 	fmt.Fprintf(w, "```\n")
-	fmt.Fprintf(w, "Discordgo: \t%s\n", discordgo.VERSION)
+	
+	if err == nil {
+		fmt.Fprintf(w, "Hostname: \t%s\n", hostname)
+	}
+
+	fmt.Fprintf(w, "DiscordGo: \t%s\n", discordgo.VERSION)
 	fmt.Fprintf(w, "Go: \t%s\n", runtime.Version())
+	fmt.Fprintf(w, "Ruby version: \t%s\n", os.Getenv("RUBY_VERSION"))
 	fmt.Fprintf(w, "Uptime: \t%s\n", getDurationString(time.Now().Sub(statsStartTime)))
 	fmt.Fprintf(w, "Memory used: \t%s / %s (%s garbage collected)\n", humanize.Bytes(stats.Alloc), humanize.Bytes(stats.Sys), humanize.Bytes(stats.TotalAlloc))
 	fmt.Fprintf(w, "Concurrent tasks: \t%d\n", runtime.NumGoroutine())

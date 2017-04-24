@@ -88,7 +88,7 @@ func main() {
 
 	IRE := ire.Gamefeed{}
 
-	discord.PostMessage(_config.Discord.Channel, "```The Lusternia Livefeed Bot is restarting...```")
+	// discord.PostMessage(_config.Discord.Channel, "```The Lusternia Livefeed Bot is restarting...```")
 	ticker := time.NewTicker(time.Millisecond * 30000) // 30 second ticker
 	go func() {
 		for range ticker.C {
